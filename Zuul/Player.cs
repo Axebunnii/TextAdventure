@@ -3,12 +3,12 @@ using System.Dynamic;
 
 namespace Zuul
 {
-
 	public class Player
 	{
 		public Room currentRoom;
 		public float health = 10f;
 		public bool alive = true;
+		public Inventory inventory;
 
 		public Player()
 		{
