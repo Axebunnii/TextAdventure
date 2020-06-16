@@ -122,6 +122,9 @@ namespace Zuul
 				case "take":
 					goTake(command);
 					break;
+				case "drop":
+					goDrop(command);
+					break;
 				case "quit":
 					wantToQuit = true;
 					break;
@@ -192,5 +195,14 @@ namespace Zuul
 			Console.WriteLine("You put the item in your inventory");
 		}
 
+		private void goDrop(Command command)
+		{
+			if (!command.hasSecondWord())
+			{
+				// if there is no second command, we don't know what to drop...
+				Console.WriteLine("Drop what?");
+				return;
+			}
+		}
 	}
 }
