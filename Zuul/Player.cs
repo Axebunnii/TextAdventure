@@ -34,5 +34,10 @@ namespace Zuul
 				alive = false;
 			}
 		}
+
+		public void PlayerInventory()
+		{
+
+		}
 	}
 }

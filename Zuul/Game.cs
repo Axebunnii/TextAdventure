@@ -7,6 +7,8 @@ namespace Zuul
 	{
 		private Parser parser;
 		private Player player;
+		public Hammer hammer = new Hammer("hammer", 5);
+		public Potion potion = new Potion("magic potion", 2);
 
 		public Game ()
 		{
@@ -28,25 +30,47 @@ namespace Zuul
 			kitchen = new Room("in the kitchen");
 			library = new Room("in the library");
 
-			// initialise room exits
+			//initialise room exits and items
+			// Outside
 			outside.setExit("east", theatre);
 			outside.setExit("south", lab);
 			outside.setExit("west", pub);
 
+			outside.setInventory(null, null);
+
+			// Theatre
 			theatre.setExit("west", outside);
 			theatre.setExit("up", kitchen);
 
+			theatre.setInventory("hammer", hammer);
+
+			// Pub
 			pub.setExit("east", outside);
 			pub.setExit("down", library);
 
+			pub.setInventory(null, null);
+			// Lab
 			lab.setExit("north", outside);
 			lab.setExit("east", office);
 
+			lab.setInventory("potion", potion);
+
+			// Office
 			office.setExit("west", lab);
 
+			office.setInventory(null, null);
+
+			// Kitchen
 			kitchen.setExit("down", theatre);
 
+			kitchen.setInventory("potion", potion);
+
+			// Library
 			library.setExit("up", pub);
+
+			library.setInventory(null, null);
+
+
 
 			player.currentRoom = outside;
 		}
@@ -109,7 +133,6 @@ namespace Zuul
 					printHelp();
 					break;
 				case "go":
-					player.Damage(1);
 					if (player.alive == false)
 					{
 						wantToQuit = true;
@@ -169,8 +192,9 @@ namespace Zuul
 			Room nextRoom = player.currentRoom.getExit(direction);
 
 			if (nextRoom == null) {
-				Console.WriteLine("There is no door to "+direction+"!");
+				Console.WriteLine("There is no door to " + direction + "!");
 			} else {
+				player.Damage(1);
 				player.currentRoom = nextRoom;
 				Console.WriteLine(player.currentRoom.getLongDescription());
 			}
@@ -192,9 +216,21 @@ namespace Zuul
 				return;
 			}
 
-			Console.WriteLine("You put the item in your inventory");
+			/*string pickup = command.getSecondWord();
+			
+			Item someItem = player.currentRoom.getRoomInventory();
+
+			if (someItem == null)
+			{
+				Console.WriteLine("There is no " + someItem + " in this room!");
+			}
+			else
+			{
+				Console.WriteLine("You put the item in your inventory");
+			}*/
 		}
 
+		//makes the player able to drop items
 		private void goDrop(Command command)
 		{
 			if (!command.hasSecondWord())

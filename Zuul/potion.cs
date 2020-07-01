@@ -4,9 +4,14 @@ namespace Zuul
 {
     public class Potion : Item
     {
+        string Description;
+        int Weight;
+
         // Constructor of base class Item is called with arguments
         public Potion(string d, int w) : base(d, w)
         {
+            this.Description = d;
+            this.Weight = w;
             Console.WriteLine("Potion ctor");
         }
 

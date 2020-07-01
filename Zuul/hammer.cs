@@ -4,9 +4,14 @@ namespace Zuul
 {
     public class Hammer : Item
     {
+        string Description;
+        int Weight;
+
         // Constructor of base class Item is called with arguments
         public Hammer(string d, int w) : base(d, w)
         {
+            this.Description = d;
+            this.Weight = w;
             Console.WriteLine("Hammer ctor");
         }
 
