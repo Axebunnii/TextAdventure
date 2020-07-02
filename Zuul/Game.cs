@@ -8,7 +8,7 @@ namespace Zuul
 		private Parser parser;
 		private Player player;
 		public Hammer hammer = new Hammer("hammer", 5);
-		public Potion potion = new Potion("magic potion", 2);
+		public Potion potion = new Potion("potion", 2);
 
 		public Game ()
 		{
@@ -36,39 +36,40 @@ namespace Zuul
 			outside.setExit("south", lab);
 			outside.setExit("west", pub);
 
-			outside.setInventory(null, null);
+			outside.inventory.Put(null);
 
 			// Theatre
 			theatre.setExit("west", outside);
 			theatre.setExit("up", kitchen);
 
-			theatre.setInventory("hammer", hammer);
+			theatre.inventory.Put(hammer);
 
 			// Pub
 			pub.setExit("east", outside);
 			pub.setExit("down", library);
 
-			pub.setInventory(null, null);
+			pub.inventory.Put(null);
+
 			// Lab
 			lab.setExit("north", outside);
 			lab.setExit("east", office);
 
-			lab.setInventory("potion", potion);
+			lab.inventory.Put(potion);
 
 			// Office
 			office.setExit("west", lab);
 
-			office.setInventory(null, null);
+			office.inventory.Put(null);
 
 			// Kitchen
 			kitchen.setExit("down", theatre);
 
-			kitchen.setInventory("potion", potion);
+			kitchen.inventory.Put(potion);
 
 			// Library
 			library.setExit("up", pub);
 
-			library.setInventory(null, null);
+			library.inventory.Put(null);
 
 
 
@@ -216,18 +217,20 @@ namespace Zuul
 				return;
 			}
 
-			/*string pickup = command.getSecondWord();
+			string itemToTake = command.getSecondWord();
 			
-			Item someItem = player.currentRoom.getRoomInventory();
+			Item someItem = player.currentRoom.inventory.Take(itemToTake);
 
 			if (someItem == null)
 			{
-				Console.WriteLine("There is no " + someItem + " in this room!");
+				Console.WriteLine("There is no " + itemToTake + " in this room!");
 			}
 			else
 			{
-				Console.WriteLine("You put the item in your inventory");
-			}*/
+				Console.WriteLine("You put the " + itemToTake + " in your inventory.");
+				Console.WriteLine(someItem);
+				//player.inventory.Put(someItem);
+			}
 		}
 
 		//makes the player able to drop items

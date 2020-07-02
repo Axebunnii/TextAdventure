@@ -11,15 +11,15 @@ namespace Zuul
 
         public Item(string d, int w)
         {
-            Console.WriteLine("Item ctor");
+            //Console.WriteLine("Item ctor");
             this.description = d;
             this.weight = w;
         }
 
         // this method is executed when called on a subclass.
-        public void Show()
+        public string Show()
         {
-            Console.WriteLine(" - Item '" + this.description + "' weighs " + this.weight);
+            return " - " + this.description + " weighs " + this.weight;
         }
 
         // this method is 'virtual', and should be 'override' in subclasses.

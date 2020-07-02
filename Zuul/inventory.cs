@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 
 namespace Zuul
 {
@@ -10,20 +11,23 @@ namespace Zuul
 
         public Inventory(int mw)
         {
-            Console.WriteLine("Inventory ctor");
+            //Console.WriteLine("Inventory ctor");
             this.max_weight = mw;
         }
 
         public int Put(Item item)
         {
-            Console.WriteLine("Trying to put " + item.description + " in Inventory");
-            if (this.TotalWeight() + item.weight < this.max_weight)
+            if (item != null)
             {
-                items.Add(item);
-                Console.WriteLine(item.description + " succesfully added to Inventory");
-                return 1;
+                Console.WriteLine("Trying to put " + item.description + " in Inventory");
+                if (this.TotalWeight() + item.weight < this.max_weight)
+                {
+                    items.Add(item);
+                    Console.WriteLine(item.description + " succesfully added to Inventory");
+                    return 1;
+                }
+                Console.WriteLine(item.description + " is too heavy!");
             }
-            Console.WriteLine(item.description + " is too heavy!");
             return 0;
         }
 
@@ -56,14 +60,18 @@ namespace Zuul
             return null;
         }
 
-        public void Show()
+        public string Show()
         {
-            Console.WriteLine("Inventory contains:");
+            string returnstring = "";
             for (int i = 0; i < items.Count; i++)
             {
-                items[i].Show();
+                returnstring += items[i].Show();
             }
-            Console.WriteLine("Total weight: " + this.TotalWeight() + " out of " + this.max_weight);
+            if(returnstring == "")
+            {
+                returnstring = "There are no items in this room";
+            }
+            return returnstring;
         }
 
         private int TotalWeight()

@@ -6,12 +6,11 @@ namespace Zuul
 {
 	public class Room
 	{
-		public Inventory inventory;
+		public Inventory inventory = new Inventory(10);
 		public Item item;
 		private string description;
 		private string rItem;
 		private Dictionary<string, Room> exits; // stores exits of this room.
-		private Dictionary<string, Item> items; // stores the items of this room.
 
 		/**
 	     * Create a room described "description". Initially, it has no exits.
@@ -22,7 +21,6 @@ namespace Zuul
 		{
 			this.description = description;
 			exits = new Dictionary<string, Room>();
-			items = new Dictionary<string, Item>();
 		}
 
 		/**
@@ -54,7 +52,7 @@ namespace Zuul
 			returnstring += ".\n";
 			returnstring += getExitstring();
 			returnstring += ".\n";
-			returnstring += getItemString();
+			returnstring += this.inventory.Show();
 			return returnstring;
 		}
 
@@ -91,43 +89,11 @@ namespace Zuul
 			}
 		}
 
-		public string getItemString()
+		/*public void RemoveFromInventory(string i)
 		{
-			string returnstring;
-			if(rItem == null)
-			{
-				returnstring = "There are no items in this room!";
+			if (items.ContainsKey(i)) {
+				items.Remove(i);
 			}
-			else
-			{
-				returnstring = "Items:";
-
-				int commas = 0;
-				foreach (string key in items.Keys) {
-					if (commas != 0 && commas != items.Count) {
-						returnstring += ",";
-					}
-					commas++;
-					returnstring += " " + key;
-				}
-			}
-			return returnstring;
-		}
-
-		//Define items for this room.
-		public void setInventory(string itemname, Item roomItem)
-		{
-			rItem = itemname;
-			
-			if(rItem != null)
-			{
-				items[rItem] = roomItem;
-			}
-		}
-
-		/*public Item getRoomInventory()
-		{
-			
 		}*/
 	}
 }

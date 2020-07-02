@@ -12,7 +12,7 @@ namespace Zuul
         {
             this.Description = d;
             this.Weight = w;
-            Console.WriteLine("Potion ctor");
+            //Console.WriteLine("Potion ctor");
         }
 
         // this method 'overrides' the 'virtual' method in base class Item.
