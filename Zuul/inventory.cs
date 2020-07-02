@@ -19,11 +19,9 @@ namespace Zuul
         {
             if (item != null)
             {
-                Console.WriteLine("Trying to put " + item.description + " in Inventory");
                 if (this.TotalWeight() + item.weight < this.max_weight)
                 {
                     items.Add(item);
-                    Console.WriteLine(item.description + " succesfully added to Inventory");
                     return 1;
                 }
                 Console.WriteLine(item.description + " is too heavy!");
@@ -34,13 +32,10 @@ namespace Zuul
         // Remove by instance
         public Item Take(Item item)
         {
-            Console.WriteLine("Trying to remove " + item.description + " from Inventory");
             if (items.Remove(item))
             {
-                Console.WriteLine("Removed " + item.description + " from Inventory");
                 return item;
             }
-            Console.WriteLine("Could not find " + item.description + " in Inventory");
             return null;
         }
 
@@ -56,7 +51,6 @@ namespace Zuul
                     return item;
                 }
             }
-            Console.WriteLine("Could not find '" + desc + "' in Inventory");
             return null;
         }
 

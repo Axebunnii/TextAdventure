@@ -228,8 +228,7 @@ namespace Zuul
 			else
 			{
 				Console.WriteLine("You put the " + itemToTake + " in your inventory.");
-				Console.WriteLine(someItem);
-				//player.inventory.Put(someItem);
+				player.inventory.Put(someItem);
 			}
 		}
 
@@ -241,6 +240,20 @@ namespace Zuul
 				// if there is no second command, we don't know what to drop...
 				Console.WriteLine("Drop what?");
 				return;
+			}
+
+			string itemToTake = command.getSecondWord();
+			
+			Item someItem = player.inventory.Take(itemToTake);
+
+			if (someItem == null)
+			{
+				Console.WriteLine("There is no " + itemToTake + " in your inventory!");
+			}
+			else
+			{
+				Console.WriteLine("You dropped the " + itemToTake + " from your inventory.");
+				player.currentRoom.inventory.Put(someItem);
 			}
 		}
 	}

@@ -8,7 +8,7 @@ namespace Zuul
 		public Room currentRoom;
 		public float health = 10f;
 		public bool alive = true;
-		public Inventory inventory;
+		public Inventory inventory = new Inventory(10);
 
 		public Player()
 		{

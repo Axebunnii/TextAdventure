@@ -19,7 +19,7 @@ namespace Zuul
         // this method is executed when called on a subclass.
         public string Show()
         {
-            return " - " + this.description + " weighs " + this.weight;
+            return " - " + this.description + ": weighs " + this.weight;
         }
 
         // this method is 'virtual', and should be 'override' in subclasses.
