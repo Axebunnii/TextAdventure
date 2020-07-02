@@ -7,8 +7,11 @@ namespace Zuul
 	{
 		private Parser parser;
 		private Player player;
-		public Hammer hammer = new Hammer("hammer", 5);
-		public Potion potion = new Potion("potion", 2);
+		public Hammer hammer = new Hammer("hammer", 5, false);
+		public Potion potion = new Potion("potion", 2, false);
+		public Key key = new Key("key", 1, false);
+		public PiosonedPotion piosonedPotion = new PiosonedPotion("potion", 2, false);
+		public Knife knife = new Knife("knife", 3, true);
 
 		public Game ()
 		{
@@ -54,12 +57,12 @@ namespace Zuul
 			lab.setExit("north", outside);
 			lab.setExit("east", office);
 
-			lab.inventory.Put(potion);
+			lab.inventory.Put(piosonedPotion);
 
 			// Office
 			office.setExit("west", lab);
 
-			office.inventory.Put(null);
+			office.inventory.Put(key);
 
 			// Kitchen
 			kitchen.setExit("down", theatre);
@@ -69,7 +72,7 @@ namespace Zuul
 			// Library
 			library.setExit("up", pub);
 
-			library.inventory.Put(null);
+			library.inventory.Put(knife);
 
 
 
@@ -77,7 +80,7 @@ namespace Zuul
 		}
 
 
-		/**
+		/**ishurt
 	     *  Main play routine.  Loops until end of play.
 	     */
 		public void play()
@@ -149,6 +152,9 @@ namespace Zuul
 				case "drop":
 					goDrop(command);
 					break;
+				case "use":
+					goUse(command);
+					break;
 				case "quit":
 					wantToQuit = true;
 					break;
@@ -195,7 +201,10 @@ namespace Zuul
 			if (nextRoom == null) {
 				Console.WriteLine("There is no door to " + direction + "!");
 			} else {
-				player.Damage(1);
+				if (player.hurt)
+				{
+					player.Damage(1);
+				}
 				player.currentRoom = nextRoom;
 				Console.WriteLine(player.currentRoom.getLongDescription());
 			}
@@ -227,8 +236,14 @@ namespace Zuul
 			}
 			else
 			{
-				Console.WriteLine("You put the " + itemToTake + " in your inventory.");
 				player.inventory.Put(someItem);
+				Console.WriteLine("You put the " + itemToTake + " in your inventory.");
+
+				if (someItem.isBadItem)
+				{
+					someItem.BadItem();
+					player.IsHurt(true);
+				}
 			}
 		}
 
@@ -255,6 +270,30 @@ namespace Zuul
 				Console.WriteLine("You dropped the " + itemToTake + " from your inventory.");
 				player.currentRoom.inventory.Put(someItem);
 			}
+		}
+
+		private void goUse(Command command)
+		{
+			/*if (!command.hasSecondWord())
+			{
+				// if there is no second command, we don't know what to drop...
+				Console.WriteLine("Use what?");
+				return;
+			}
+
+			string itemToUse = command.getSecondWord();
+
+			Item someItem = player.inventory.Take(itemToUse);
+
+			if (someItem == null)
+			{
+				Console.WriteLine("There is no " + itemToUse + " in your inventory!");
+			}
+			else
+			{
+				Console.WriteLine("You used the " + itemToUse);
+				player.inventory.Take(someItem);
+			}*/
 		}
 	}
 }

@@ -2,10 +2,10 @@ using System;
 
 namespace Zuul
 {
-    public class Hammer : Item
+    public class Key : Item
     {
         // Constructor of base class Item is called with arguments
-        public Hammer(string d, int w, bool b) : base(d, w, b)
+        public Key(string d, int w, bool b) : base(d, w, b)
         {
             this.description = d;
             this.weight = w;
@@ -15,7 +15,7 @@ namespace Zuul
         // this method 'overrides' the 'virtual' method in base class Item.
         public override void Use()
         {
-            Console.WriteLine("Hitting the nail on the head!");
+            Console.WriteLine("You heared a clicking sound from the door. It is now open!");
         }
     }
 }

@@ -8,12 +8,14 @@ namespace Zuul
     {
         public string description { get; set; }
         public int weight { get; set; }
+        public bool isBadItem { get; set; }
 
-        public Item(string d, int w)
+        public Item(string d, int w, bool b)
         {
             //Console.WriteLine("Item ctor");
             this.description = d;
             this.weight = w;
+            this.isBadItem = b;
         }
 
         // this method is executed when called on a subclass.
@@ -26,6 +28,11 @@ namespace Zuul
         public virtual void Use()
         {
             Console.WriteLine("Generic 'Use' method called");
+        }
+
+        public virtual void BadItem()
+        {
+            Console.WriteLine("Generic 'BadItem' method called");
         }
     }
 }

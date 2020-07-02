@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 
 namespace Zuul
 {
-    public class Hammer : Item
+    public class PiosonedPotion : Item
     {
         // Constructor of base class Item is called with arguments
-        public Hammer(string d, int w, bool b) : base(d, w, b)
+        public PiosonedPotion(string d, int w, bool b) : base(d, w, b)
         {
             this.description = d;
             this.weight = w;
@@ -15,7 +15,13 @@ namespace Zuul
         // this method 'overrides' the 'virtual' method in base class Item.
         public override void Use()
         {
-            Console.WriteLine("Hitting the nail on the head!");
+            this.isBadItem = true;
+            Console.WriteLine("You drank the mysterious potion. Too bad, it was poisoned");
+        }
+
+        public override void BadItem()
+        {
+            
         }
     }
 }
