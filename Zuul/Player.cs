@@ -10,6 +10,7 @@ namespace Zuul
 		public float health = 10f;
 		public bool alive = true;
 		public bool hurt = false;
+		public int hurtAmount = 0;
 		public Inventory inventory = new Inventory(10);
 
 		public Player()
@@ -19,8 +20,9 @@ namespace Zuul
 
 		public void Damage(float amount)
 		{
-			health -= amount;
-			Console.WriteLine("health: " + health);
+			float totalDamage = amount * hurtAmount;
+			health -= totalDamage;
+			Console.WriteLine("You lost " + totalDamage + " health.\n" + "health: " + health);
 			IsAlive();
 		}
 
@@ -42,6 +44,7 @@ namespace Zuul
 			if (h)
 			{
 				hurt = true;
+				hurtAmount += 1;
 			}
 			else
 			{

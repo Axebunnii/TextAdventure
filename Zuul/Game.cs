@@ -10,7 +10,7 @@ namespace Zuul
 		public Hammer hammer = new Hammer("hammer", 5, false);
 		public Potion potion = new Potion("potion", 2, false);
 		public Key key = new Key("key", 1, false);
-		public PiosonedPotion piosonedPotion = new PiosonedPotion("potion", 2, false);
+		public PiosonedPotion piosonedPotion = new PiosonedPotion("potion", 2, true);
 		public Knife knife = new Knife("knife", 3, true);
 
 		public Game ()
@@ -239,7 +239,7 @@ namespace Zuul
 				player.inventory.Put(someItem);
 				Console.WriteLine("You put the " + itemToTake + " in your inventory.");
 
-				if (someItem.isBadItem)
+				if (someItem.isBadItem && someItem.description == "knife")
 				{
 					someItem.BadItem();
 					player.IsHurt(true);
@@ -274,7 +274,7 @@ namespace Zuul
 
 		private void goUse(Command command)
 		{
-			/*if (!command.hasSecondWord())
+			if (!command.hasSecondWord())
 			{
 				// if there is no second command, we don't know what to drop...
 				Console.WriteLine("Use what?");
@@ -292,8 +292,13 @@ namespace Zuul
 			else
 			{
 				Console.WriteLine("You used the " + itemToUse);
+				if (someItem.isBadItem)
+				{
+					player.IsHurt(true);
+				}
 				player.inventory.Take(someItem);
-			}*/
+				someItem.Use();
+			}
 		}
 	}
 }
