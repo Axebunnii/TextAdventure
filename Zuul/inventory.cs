@@ -78,6 +78,17 @@ namespace Zuul
             return t;
         }
 
+        public bool Get(Item i)
+        {
+            if (items.Contains(i))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
 

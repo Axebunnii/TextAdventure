@@ -41,11 +41,14 @@ namespace Zuul
 
 			outside.inventory.Put(null);
 
+
 			// Theatre
 			theatre.setExit("west", outside);
 			theatre.setExit("up", kitchen);
 
 			theatre.inventory.Put(hammer);
+
+			theatre.CheckIfLocked(true);
 
 			// Pub
 			pub.setExit("east", outside);
@@ -201,12 +204,25 @@ namespace Zuul
 			if (nextRoom == null) {
 				Console.WriteLine("There is no door to " + direction + "!");
 			} else {
-				if (player.hurt)
-				{
-					player.Damage(1);
+				if (nextRoom.IsLocked()) {
+					Console.WriteLine("This door is locked! You will need a key to open it.");
+					if (player.inventory.Get(key))
+					{
+						Console.WriteLine("You used the key on the door.");
+						key.Use();
+						player.inventory.Take(key);
+						nextRoom.CheckIfLocked(false);
+						player.currentRoom = nextRoom;
+						Console.WriteLine(player.currentRoom.getLongDescription());
+					}
+				} else {
+					if (player.hurt)
+					{
+						player.Damage(1);
+					}
+					player.currentRoom = nextRoom;
+					Console.WriteLine(player.currentRoom.getLongDescription());
 				}
-				player.currentRoom = nextRoom;
-				Console.WriteLine(player.currentRoom.getLongDescription());
 			}
 		}
 

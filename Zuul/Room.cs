@@ -9,7 +9,7 @@ namespace Zuul
 		public Inventory inventory = new Inventory(10);
 		public Item item;
 		private string description;
-		private string rItem;
+		public bool isLocked;
 		private Dictionary<string, Room> exits; // stores exits of this room.
 
 		/**
@@ -89,11 +89,14 @@ namespace Zuul
 			}
 		}
 
-		/*public void RemoveFromInventory(string i)
+		public void CheckIfLocked(bool l)
 		{
-			if (items.ContainsKey(i)) {
-				items.Remove(i);
-			}
-		}*/
+			isLocked = l;
+		}
+
+		public bool IsLocked()
+		{
+			return isLocked;
+		}
 	}
 }
